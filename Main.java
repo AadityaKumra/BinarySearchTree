@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 class BinaryNode {
   int val;
   BinaryNode left;
@@ -14,6 +17,14 @@ class Main {
     BST.insertNode(123);
     BST.insertNode(1);
     BST.insertNode(0);
+    System.out.println(BST.root.val);
+    BST.preorderTraversal(BST.root);
+    System.out.println();
+    BST.inorderTraversal(BST.root);
+    System.out.println();
+    BST.postorderTraversal(BST.root);
+    System.out.println();
+    BST.levelorderTraversal(BST.root);
   }
 }
 
@@ -28,22 +39,68 @@ class BinarySearchTree {
     BinaryNode newNode = new BinaryNode();
     newNode.val = value;
     if (currentNode == null) {
-
-      System.out.println("The value is successfully inserted.");
+      currentNode=newNode;
+      //System.out.println("The value is successfully inserted.");
       return newNode;
-    } else {
-      if (value <= currentNode.val) {
-        insertNode(currentNode.left, value);
-      }
-      if (value > currentNode.val) {
-        insertNode(currentNode.right, value);
-      }
+    } 
+    else if (value <= currentNode.val) {
+      currentNode.left= insertNode(currentNode.left, value);
+      return currentNode;
     }
-    return newNode;
-
+    else{ 
+      currentNode.right=insertNode(currentNode.right, value);
+      return currentNode;
+    }
+  }
+  void insertNode(int value) {
+    root=insertNode(root, value);
   }
 
-  void insertNode(int value) {
-    insertNode(root, value);
+  void preorderTraversal(BinaryNode root){
+    if(root==null){
+      System.out.print("");
+    }
+    else{
+      System.out.print(root.val+" ");
+      preorderTraversal(root.left);
+      preorderTraversal(root.right);
+    }
+  }
+
+  void inorderTraversal(BinaryNode root){
+    if(root==null){
+      System.out.print("");
+    }
+    else{
+      inorderTraversal(root.left);
+      System.out.print(root.val+" ");
+      inorderTraversal(root.right);
+    }
+  }
+
+  void postorderTraversal(BinaryNode root){
+    if(root==null){
+      System.out.print("");
+    }
+    else{
+      postorderTraversal(root.left);
+      postorderTraversal(root.right);
+      System.out.print(root.val+" ");
+    }
+  }
+
+  void levelorderTraversal(BinaryNode root){
+    Queue<BinaryNode> queue=new LinkedList<BinaryNode>();
+    queue.add(root);
+    while(!queue.isEmpty()){
+      BinaryNode presentNode=queue.remove();
+      System.out.print(presentNode.val+" ");
+      if(presentNode.left!=null){
+        queue.add(presentNode.left);
+      }
+      if(presentNode.right!=null){
+        queue.add(presentNode.right);
+      }
+    }
   }
 }
