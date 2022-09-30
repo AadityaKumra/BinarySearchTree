@@ -17,6 +17,7 @@ class Main {
     BST.insertNode(123);
     BST.insertNode(1);
     BST.insertNode(0);
+    BST.insertNode(11);
     System.out.println(BST.root.val);
     BST.preorderTraversal(BST.root);
     System.out.println();
@@ -25,6 +26,13 @@ class Main {
     BST.postorderTraversal(BST.root);
     System.out.println();
     BST.levelorderTraversal(BST.root);
+    System.out.println();
+    BST.search(0);
+    BST.search(2);
+    BST.search(123);
+    BST.search(9);
+    BST.search(10);
+    BST.search(122);
   }
 }
 
@@ -102,5 +110,29 @@ class BinarySearchTree {
         queue.add(presentNode.right);
       }
     }
+  }
+
+  void search(BinaryNode node,int value){
+    if(node==null){
+      System.out.println(value+ " not in BST. :(");
+      return;
+    }
+    if(node.val==value){
+      System.out.println(+value+" found in BST. :)");
+      return;
+    }
+    if(node.val>value){
+      search(node.left,value);
+    }
+    if(node.val<value){
+      search(node.right,value);
+    }
+    
+    
+    
+  }
+
+  void search(int value){
+    search(root,value);
   }
 }
