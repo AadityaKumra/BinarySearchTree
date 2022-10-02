@@ -33,6 +33,10 @@ class Main {
     BST.search(9);
     BST.search(10);
     BST.search(122);
+    BST.deleteNode(BST.root,123);
+
+    BST.deleteNode(BST.root,123);
+    BST.levelorderTraversal(BST.root);
   }
 }
 
@@ -126,13 +130,56 @@ class BinarySearchTree {
     }
     if(node.val<value){
       search(node.right,value);
-    }
-    
-    
-    
+    } 
   }
-
+  
   void search(int value){
     search(root,value);
   }
+
+
+  BinaryNode minimumNode(BinaryNode root){
+    if(root.left==null){return root;}
+    else{
+    return minimumNode(root.left);}
+  }
+  
+
+    
+  BinaryNode deleteNode(BinaryNode root,int value){
+    if(root==null){
+      System.out.println(value+ " not found in BST. :(");
+      return null;
+    }
+    if(value<root.val){
+      root.left=deleteNode(root.left,value);
+    }
+    if(value>root.val){
+      root.right=deleteNode(root.right,value);
+    }
+    else{
+      if(root.left!=null && root.right!=null){
+        BinaryNode temp=root;
+        BinaryNode minNodeForRight=minimumNode(temp.right); // smallest value bigger than the current value.
+        root.val=minNodeForRight.val;
+        root.right=deleteNode(root.right,minNodeForRight.val);//to delete the minimum node after replacing the value of minimum node to the rootnode.
+      }
+      else if(root.left!=null){
+        root=root.left; // if root.right is null just replace the root with its left node.
+      }
+      else if(root.right!=null){
+        root=root.right;
+      }
+      else{
+        root=null; //if root is leaf node or root is minimum node whose value is replaced in the deleted node.
+      }
+      System.out.println("YAYY SUCCESFULLY DELETED.");
+    }
+    
+    return root;
+    
+  }
+
+
+  
 }
