@@ -37,6 +37,8 @@ class Main {
 
     BST.deleteNode(BST.root,123);
     BST.levelorderTraversal(BST.root);
+    BST.deleteBST();
+    BST.search(4);
   }
 }
 
@@ -114,6 +116,7 @@ class BinarySearchTree {
         queue.add(presentNode.right);
       }
     }
+    System.out.println();
   }
 
   void search(BinaryNode node,int value){
@@ -180,6 +183,10 @@ class BinarySearchTree {
     
   }
 
+  void deleteBST(){
+    root=null;
+    System.out.println("YAYY successfully delete BST.");
+  }
 
   
 }
